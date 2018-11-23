@@ -72,7 +72,7 @@ class ezjscServerFunctionsAutosave extends ezjscServerFunctions
         $contentObject = eZContentObject::fetch( (int)$args[0] );
         if ( !$contentObject instanceof eZContentObject )
         {
-            $db->rollback();
+            $db->commit();
             throw new InvalidArgumentException(
                 ezpI18n::tr(
                     'extension/ezautosave/autosave',
@@ -84,7 +84,7 @@ class ezjscServerFunctionsAutosave extends ezjscServerFunctions
 
         if ( $contentObject->attribute( 'status' ) == eZContentObject::STATUS_ARCHIVED )
         {
-            $db->rollback();
+            $db->commit();
             throw new InvalidArgumentException(
                 ezpI18n::tr(
                     'extension/ezautosave/autosave',
@@ -99,7 +99,7 @@ class ezjscServerFunctionsAutosave extends ezjscServerFunctions
         $version = $contentObject->version( (int)$args[1] );
         if  ( !$version instanceof eZContentObjectVersion )
         {
-            $db->rollback();
+            $db->commit();
             throw new InvalidArgumentException(
                 ezpI18n::tr(
                     'extension/ezautosave/autosave',
@@ -114,7 +114,7 @@ class ezjscServerFunctionsAutosave extends ezjscServerFunctions
         if ( $version->attribute( 'status' ) != eZContentObjectVersion::STATUS_DRAFT
                 && $version->attribute( 'status' ) != eZContentObjectVersion::STATUS_INTERNAL_DRAFT )
         {
-            $db->rollback();
+            $db->commit();
             throw new RuntimeException(
                 ezpI18n::tr(
                     'extension/ezautosave/autosave',
@@ -128,7 +128,7 @@ class ezjscServerFunctionsAutosave extends ezjscServerFunctions
         }
         if ( $version->attribute( 'creator_id' ) != eZUser::currentUserID() )
         {
-            $db->rollback();
+            $db->commit();
             throw new RuntimeException(
                 ezpI18n::tr(
                     'extension/ezautosave/autosave',
@@ -141,7 +141,7 @@ class ezjscServerFunctionsAutosave extends ezjscServerFunctions
         $language = eZContentLanguage::fetchByLocale( $editLanguage );
         if ( !$language instanceof eZContentLanguage )
         {
-            $db->rollback();
+            $db->commit();
             throw new InvalidArgumentException(
                 ezpI18n::tr(
                     'extension/ezautosave/autosave',
