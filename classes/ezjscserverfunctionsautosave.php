@@ -69,7 +69,7 @@ class ezjscServerFunctionsAutosave extends ezjscServerFunctions
         $db = eZDB::instance();
         $db->begin();
 
-        $contentObject = eZContentObject::fetch( (int)$args[0] );
+        $contentObject = eZContentObject::fetchForUpdate( (int)$args[0] );
         if ( !$contentObject instanceof eZContentObject )
         {
             $db->commit();
