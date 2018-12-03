@@ -96,7 +96,7 @@ class ezjscServerFunctionsAutosave extends ezjscServerFunctions
             );
         }
 
-        $version = $contentObject->version( (int)$args[1] );
+        $version = eZContentObjectVersion::fetchVersionForUpdate( (int)$args[1], $contentObject->attribute( 'id' ) );
         if  ( !$version instanceof eZContentObjectVersion )
         {
             $db->commit();
